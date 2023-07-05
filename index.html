@@ -10,6 +10,8 @@
 <body>
     <div id="title-container">
         <h1 id="title">Weather Forecast</h1>
+        <p id="currentDay" ></p>
+        <p id="currentTime"></p>
     </div>
 
     <div id="wrapper-container">
@@ -37,7 +39,7 @@
                 </div>
                 <h2>5-Day Forecast:</h2>
                 <div id="five-DayForecast-container">
-                    <div class="five-DayForecast-Cards">
+                    <div class="five-DayForecast-cards">
                         <div id='date-1' class="date"></div>
                         <img src="" id="icon-1">
                         <div id="temp-1" class="card-Info">Temp:</div>
@@ -88,7 +90,7 @@
 
 
 
-
-    <script src="./assets/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="./assets/script.js"></script> 
 </body>
 </html>
