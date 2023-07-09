@@ -33,7 +33,7 @@ function getWeatherData(city) {
       .then(function(data) {
         // Process the response data
         console.log(data); // logs the response data
-        console.log(data.main.temp);      // Logs the value of the 'temp' property
+        console.log(data.main.temp); // Logs the value of the 'temp' property
 
         //Through the Open WeatherMap API response
         // Updates the City information in the HTML by getting the value of the name property 
@@ -45,9 +45,25 @@ function getWeatherData(city) {
         // Updates the Humidity information in the HTML by getting humidity property
         document.getElementById("currentHumidity").textContent = "Humidity: " + data.main.humidity + "%";
         //Updates the description in the HTML by getting the weather property -> weather array -> first index (0) -> description property 
-        document.getElementById("description-1").textContent = "Description: " + data.weather[0].description;
+        document.getElementById("description").textContent = "Description: " + data.weather[0].description;
         // Adds a icon from the openweather API corresponding to particular weather codes 
         document.getElementById("currentIcon").src = "https://openweathermap.org/img/wn/" + data.weather[0].icon + ".png";
+
+
+    // Fetch current date + 1
+var currentDatePlusOne = dayjs().add(1, 'day').format("D/M/YYYY");
+
+// Updates the temperature information for +1 day in the HTML
+document.getElementById("temp-1").textContent = "Temp: " + currentDatePlusOne + "ºC";
+
+
+
+
+
+
+
+
+
       })
       .catch(function(error) {
         // Handle any errors that occur during the API call
