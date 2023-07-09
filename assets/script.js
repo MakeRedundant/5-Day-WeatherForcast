@@ -1,6 +1,7 @@
 //Variables 
-var currentDate; //For getting the current Date
-var currentTime; //For getting the current Time + Timezone
+var currentDay; //For getting the current Day + Date dddd, D, MMMM, YYYY
+var currentDate; //For getting current Date D/M/YYYY
+var currentTime; //For getting the current Time + Timezone HH:mm:ss Z [AEST]
 var city = "";
 
 //Api 
@@ -15,41 +16,46 @@ var apiCall = "api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appi
 //Day.js to get our current time 
 
 function getWeatherData(city) {
-    // Convert the city to lowercase to make the search case-insensitive
+    // Convert the cities to lowercase to make the search case-insensitive
     city = city.toLowerCase();
   
-    // Construct the API URL with the city name and API key
-    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
-    
-    // Make the API call using fetch
-    fetch(apiUrl)
-      .then(function(response) {
+    // Construct the API URL with the city name and API key + retrieves metric results
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + ",AU&units=metric&appid=" + apiKey;
+
+    // Make the API call using fetch function
+    fetch(apiUrl) //initates an HTTP request to the OpenWeatherMap API, returns a promise that resolves to the response object 
+      .then(function(response) { //inside the "then" method is called when the promise is fulfilled 
         if (!response.ok) {
-          throw new Error("City not found");
+          throw new Error("City not found"); //if the response status is not within successful range 200-299 throw a error
         }
         return response.json();
       })
       .then(function(data) {
         // Process the response data
         console.log(data); // logs the response data
-        // Temperatures are in Kelvin by default
         console.log(data.main.temp);      // Logs the value of the 'temp' property
-        console.log(data.main.temp_max);  // Logs the value of the 'temp_max' property
-        console.log(data.main.temp_min);  // Logs the value of the 'temp_min' property
-  
-        // Update the weather information in your HTML
+
+        //Through the Open WeatherMap API response
+        // Updates the City information in the HTML by getting the value of the name property 
         document.getElementById("currentCity").textContent = data.name;
-        // Update other elements with the weather data as needed
-  
-        // You can also store the recent searches or perform other actions with the data
+        // Updates the temperature information in the HTML by getting the temp property 
+        document.getElementById("currentTemp").textContent = "Temp: " + data.main.temp + "ºC";
+        // Updates the Wind information in the HTML by getting wind property which contains properties such as speed
+        document.getElementById("currentWind").textContent = "Wind: " + data.wind.speed + "m/s";
+        // Updates the Humidity information in the HTML by getting humidity property
+        document.getElementById("currentHumidity").textContent = "Humidity: " + data.main.humidity + "%";
+        //Updates the description in the HTML by getting the weather property -> weather array -> first index (0) -> description property 
+        document.getElementById("description-1").textContent = "Description: " + data.weather[0].description;
+        // Adds a icon from the openweather API corresponding to particular weather codes 
+        document.getElementById("currentIcon").src = "https://openweathermap.org/img/wn/" + data.weather[0].icon + ".png";
       })
       .catch(function(error) {
         // Handle any errors that occur during the API call
-        console.log('An error occurred:', error);
+        console.log('An error occurred:', error); 
+        document.getElementById("currentCity").textContent = "Sorry there was a error";
   
-        // Check if the error is due to a city not found
+        // Checks if the error is due to a city not found
         if (error.message === "City not found") {
-          // Handle the case of a city not found
           console.log("City not found. Please enter a valid city name.");
           document.getElementById("currentCity").textContent = "Sorry the city was not found";
         }
@@ -70,12 +76,14 @@ document.getElementById('searchBtn').addEventListener('click', function(event) {
     getWeatherData(city);
   });
 
-//Get current Date  
+//Get current Day  
 document.addEventListener("DOMContentLoaded", function() {
     var currentDate = dayjs().format("dddd, D, MMMM, YYYY");
     document.getElementById("currentDay").textContent = currentDate;
 //Get current time  
     var currentTime = dayjs().format("HH:mm:ss Z [AEST]");
     document.getElementById("currentTime").textContent = currentTime;
-  });
-  
+//Get current Date
+    var currentDate = dayjs().format("D/M/YYYY")
+    document.getElementById("currentDate").textContent = currentDate;
+});
