@@ -1,14 +1,15 @@
 //Variables 
 var currentDay; //For getting the current Day + Date dddd, D, MMMM, YYYY
-var currentDate; //For getting current Date D/M/YYYY
+var currentDate = dayjs().format("dddd, D, MMMM, YYYY"); //For getting current Date D/M/YYYY
 var currentTime; //For getting the current Time + Timezone HH:mm:ss Z [AEST]
-var city = "";
 
 //Api 
 //Api key from Openweather 
 var apiKey = "f62c9d6db823b3bd186bc980988733d1";
-
-//Api call
+var lonKey = "&lon=";
+var latitude = " ";
+var longitude = " ";
+//Api Call 5 day / 3 hour forecast data
 
 var apiCall = "api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={f62c9d6db823b3bd186bc980988733d1}";
 
@@ -16,26 +17,46 @@ var apiCall = "api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appi
 //Day.js to get our current time 
 
 function getWeatherData(city) {
-    // Convert the cities to lowercase to make the search case-insensitive
-    city = city.toLowerCase();
-  
-    // Construct the API URL with the city name and API key + retrieves metric results
-    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + ",AU&units=metric&appid=" + apiKey;
+  // Convert the city name to lowercase to make the search case-insensitive
+  city = city.toLowerCase();
 
-    // Make the API call using fetch function
-    fetch(apiUrl) //initates an HTTP request to the OpenWeatherMap API, returns a promise that resolves to the response object 
-      .then(function(response) { //inside the "then" method is called when the promise is fulfilled 
-        if (!response.ok) {
-          throw new Error("City not found"); //if the response status is not within successful range 200-299 throw a error
-        }
-        return response.json();
-      })
-      .then(function(data) {
-        // Process the response data
-        console.log(data); // logs the response data
-        console.log(data.main.temp); // Logs the value of the 'temp' property
+  // Construct the API URL to get the latitude and longitude
+  var geocodingUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + ",AU&limit=1&appid=" + apiKey;
 
-        //Through the Open WeatherMap API response
+  // Make the API call to fetch the latitude and longitude
+  fetch(geocodingUrl)
+    .then(function(response) {
+      if (!response.ok) {
+        throw new Error("City not found");
+      }
+      return response.json();
+    })
+    .then(function(data) {
+      if (data.length === 0) {
+        throw new Error("City not found");
+      }
+
+      // Get the latitude and longitude from the response
+      var latitude = data[0].lat;
+      var longitude = data[0].lon;
+
+      // Construct the API URL for weather data using the obtained latitude and longitude
+      var apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&units=metric&appid=" + apiKey;
+
+      // Make the API call using fetch function
+      fetch(apiUrl)
+        .then(function(response) {
+          if (!response.ok) {
+            throw new Error("City not found");
+          }
+          return response.json();
+        })
+        .then(function(data) {
+          // Process the response data
+          console.log(data);
+          console.log(data.main.temp);
+
+      //Through the Open WeatherMap API response
         // Updates the City information in the HTML by getting the value of the name property 
         document.getElementById("currentCity").textContent = data.name;
         // Updates the temperature information in the HTML by getting the temp property 
@@ -48,36 +69,87 @@ function getWeatherData(city) {
         document.getElementById("description").textContent = "Description: " + data.weather[0].description;
         // Adds a icon from the openweather API corresponding to particular weather codes 
         document.getElementById("currentIcon").src = "https://openweathermap.org/img/wn/" + data.weather[0].icon + ".png";
-
-
-    // Fetch current date + 1
-var currentDatePlusOne = dayjs().add(1, 'day').format("D/M/YYYY");
-
-// Updates the temperature information for +1 day in the HTML
-document.getElementById("temp-1").textContent = "Temp: " + currentDatePlusOne + "ºC";
-
-
-
-
-
-
-
-
-
       })
-      .catch(function(error) {
-        // Handle any errors that occur during the API call
-        console.log('An error occurred:', error); 
-        document.getElementById("currentCity").textContent = "Sorry there was a error";
-  
-        // Checks if the error is due to a city not found
-        if (error.message === "City not found") {
-          console.log("City not found. Please enter a valid city name.");
-          document.getElementById("currentCity").textContent = "Sorry the city was not found";
-        }
-      });
-  }
-  
+        .catch(function(error) {
+          // Handle any errors that occur during the API call
+          console.log("An error occurred:", error);
+          document.getElementById("currentCity").textContent = "Sorry, there was an error";
+
+          // Checks if the error is due to a city not found
+          if (error.message === "City not found") {
+            console.log("City not found. Please enter a valid city name.");
+            document.getElementById("currentCity").textContent = "Sorry, the city was not found";
+          }
+        });
+    })
+    .catch(function(error) {
+      // Handle any errors that occur during the API call
+      console.log("An error occurred:", error);
+      document.getElementById("currentCity").textContent = "Sorry, there was an error";
+
+      // Checks if the error is due to a city not found
+      if (error.message === "City not found") {
+        console.log("City not found. Please enter a valid city name.");
+        document.getElementById("currentCity").textContent = "Sorry, the city was not found";
+      }
+    });
+}
+
+function fetchForecastData(city) {
+  // Convert the city name to lowercase to make the search case-insensitive
+  city = city.toLowerCase();
+
+  // Construct the geocoding API URL to get the latitude and longitude
+  var geocodingUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + ",AU&limit=1&appid=" + apiKey;
+
+  // Make the API call to fetch the latitude and longitude
+  fetch(geocodingUrl)
+    .then(function(response) {
+      if (!response.ok) {
+        throw new Error("City not found");
+      }
+      return response.json();
+    })
+    .then(function(data) {
+      if (data.length === 0) {
+        throw new Error("City not found");
+      }
+
+      // Get the latitude and longitude from the response
+      var latitude = data[0].lat;
+      var longitude = data[0].lon;
+
+      // Construct the forecast API URL using the obtained latitude and longitude
+      var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&units=metric&appid=" + apiKey;
+
+      // Make the API call to fetch the forecast data
+      fetch(forecastUrl)
+        .then(function(response) {
+          if (!response.ok) {
+            throw new Error("Failed to fetch forecast data");
+          }
+          return response.json();
+        })
+        .then(function(data) {
+          // Process the forecast data and update the HTML elements
+          console.log(data);
+
+          // Update the forecast data for each day
+          // Day 1
+          document.getElementById("date-plus-1").textContent = dayjs().add(1, "day").format("DD/MM/YY");
+          // document.querySelector("#icon-1").src = "https://openweathermap.org/img/w/" + data.list[1].weather[0].icon + ".png";
+          // document.querySelector("#temp-1").textContent = "Temp: " + data.list[1].main.temp + " ºF";
+          // document.querySelector("#wind-1").textContent = "Wind: " + data.list[1].wind.speed + " MPH";
+          // document.querySelector("#humidity-1").textContent = "Humidity: " + data.list[1].main.humidity + " %";
+        })
+        .catch(function(error) {
+          console.log('An error occurred:', error);
+        });
+    })
+    .catch(function(error) {
+      console.log('An error occurred:', error);
+    });
+}
 
 //Event Listeners
 //Search for a city 
@@ -103,3 +175,28 @@ document.addEventListener("DOMContentLoaded", function() {
     var currentDate = dayjs().format("D/M/YYYY")
     document.getElementById("currentDate").textContent = currentDate;
 });
+// +1 Day
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("date-plus-1").textContent = dayjs().add(1, "day").format("DD/MM/YY");
+});
+
+// +2 Day
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("date-plus-2").textContent = dayjs().add(2, "day").format("DD/MM/YY");
+});
+
+// +3 Day
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("date-plus-3").textContent = dayjs().add(3, "day").format("DD/MM/YY");
+});
+
+// +4 Day
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("date-plus-4").textContent = dayjs().add(4, "day").format("DD/MM/YY");
+});
+
+// +5 Day
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("date-plus-5").textContent = dayjs().add(5, "day").format("DD/MM/YY");
+});
+
