@@ -13,34 +13,35 @@ var longitude = " ";
 
 var apiCall = "api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={f62c9d6db823b3bd186bc980988733d1}";
 
-//Day.js to get our current time 
-
 function getWeatherData(city) {
   // Convert the city name to lowercase to make the search case-insensitive
   city = city.toLowerCase();
 
   // Construct the API URL to get the latitude and longitude
-  var geocodingUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + ",AU&limit=1&appid=" + apiKey;
+  var geocodingUrl = /*base url*/ "https://api.openweathermap.org/geo/1.0/direct?q="/*query parameters */ + city + ",limit=1&appid=" + apiKey; //limit one to return the most releveant result + apikey to authenicate the request
 
   // Make the API call to fetch the latitude and longitude
-  fetch(geocodingUrl)
-    .then(function(response) {
-      if (!response.ok) {
-        throw new Error("City not found");
+   // makes a fetch request to the geocodingUrl we constructed
+  fetch(geocodingUrl) 
+    .then(function(response) { //then() method to handle response when it is successfully recevied.
+      if (!response.ok) { 
+        throw new Error("response not within 200-299"); //not withint 200-299 an error is thrown
       }
-      return response.json();
+      return response.json(); //if successful json () is called on the response to parse the response body as JSON which returns another promise that resolves to the parse data
     })
-    .then(function(data) {
+    .then(function(data) { //another then() method to handle the parsed JSON data 
       if (data.length === 0) {
-        throw new Error("City not found");
+        throw new Error("Parsed JSON data is empty"); 
       }
 
       // Get the latitude and longitude from the response
       var latitude = data[0].lat;
       var longitude = data[0].lon;
+      console.log("Latitude:", latitude);
+      console.log("Longitude:", longitude);
 
       // Construct the API URL for weather data using the obtained latitude and longitude
-      var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&units=metric&appid=" + apiKey;
+      var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&units=metric&appid=" + apiKey; //query parameters of lat, long retrives metric data 
 
       // Make the API call using fetch function
       fetch(apiUrl)
@@ -114,21 +115,10 @@ function getWeatherData(city) {
           // Checks if the error is due to a city not found
           if (error.message === "City not found") {
             console.log("City not found. Please enter a valid city name.");
-            document.getElementById("currentCity").textContent = "Sorry, the city was not found";
+            document.getElementById("currentCity").textContent = "City not found. Please enter a valid city name.";
           }
         });
     })
-    .catch(function(error) {
-      // Handle any errors that occur during the API call
-      console.log("An error occurred:", error);
-      document.getElementById("currentCity").textContent = "Sorry, there was an error";
-
-      // Checks if the error is due to a city not found
-      if (error.message === "City not found") {
-        console.log("City not found. Please enter a valid city name.");
-        document.getElementById("currentCity").textContent = "Sorry, the city was not found";
-      }
-    });
 }
 //Event Listeners
 //Search for a city 
@@ -142,7 +132,7 @@ document.getElementById('searchBtn').addEventListener('click', function(event) {
     // Call the function to fetch weather data based on the user input
     getWeatherData(city);
   });
-
+//Day.js to get our current time 
 //Get current Day  
 document.addEventListener("DOMContentLoaded", function() {
     var currentDate = dayjs().format("dddd, D, MMMM, YYYY");
