@@ -2,16 +2,17 @@
 var currentDay; //For getting the current Day + Date dddd, D, MMMM, YYYY
 var currentDate = dayjs().format("dddd, D, MMMM, YYYY"); //For getting current Date D/M/YYYY
 var currentTime; //For getting the current Time + Timezone HH:mm:ss Z [AEST]
-var CityArray = [];
+var recentSearches = []; //array for recent searches 
+
+let city = document.getElementById('userInput').value;
 //Api 
 //Api key from Openweather 
-var apiKey = "f62c9d6db823b3bd186bc980988733d1";
+const apiKey = "f62c9d6db823b3bd186bc980988733d1";
 var lonKey = "&lon=";
 var latitude = " ";
 var longitude = " ";
 //Api Call 5 day / 3 hour forecast data
-
-var apiCall = "api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={f62c9d6db823b3bd186bc980988733d1}";
+const apiCall = "api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={f62c9d6db823b3bd186bc980988733d1}";
 
 function getWeatherData(city) {
   // Convert the city name to lowercase to make the search case-insensitive
@@ -41,10 +42,10 @@ function getWeatherData(city) {
       console.log("Longitude:", longitude);
 
       // Construct the API URL for weather data using the obtained latitude and longitude
-      var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&units=metric&appid=" + apiKey; //query parameters of lat, long retrives metric data 
+      var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&units=metric&appid=" + apiKey; //query parameters of lat+ lon retrives metric data 
 
       // Make the API call using fetch function
-      fetch(apiUrl)
+      fetch(apiUrl) 
         .then(function(response) {
           if (!response.ok) {
             throw new Error("City not found");
@@ -70,6 +71,8 @@ function getWeatherData(city) {
         document.getElementById("description").textContent = "Description: " + data.list[0].weather[0].description;
         // Adds a icon from the openweather API corresponding to particular weather codes 
         document.getElementById("currentIcon").src = "https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + ".png";
+        var time = data.list[0].dt_txt;
+        console.log(time);
 
         //Day +1 
         document.querySelector("#icon-1").src = "https://openweathermap.org/img/wn/" + data.list[1].weather[0].icon + ".png";
@@ -120,6 +123,28 @@ function getWeatherData(city) {
         });
     })
 }
+
+function appendRecentSearches(city) {
+  var recentSearchesContainer = document.getElementById("recentSearches");
+
+  // Clear the container before appending new buttons
+  recentSearchesContainer.innerHTML = "";
+
+  for (var index = 0; index < recentSearches.length; index++) {
+    var city = recentSearches[index];
+    var recentSearchButton = document.createElement("button");
+    recentSearchButton.innerText = city;
+    recentSearchButton.onclick = function() {
+      var cityName = this.innerText;
+      console.log("City button clicked:" + cityName);
+      getWeatherData(cityName);
+    };
+
+    // Append the button to the container
+    recentSearchesContainer.appendChild(recentSearchButton);
+  }
+}
+
 //Event Listeners
 //Search for a city 
 document.getElementById('searchBtn').addEventListener('click', function(event) {
@@ -128,9 +153,15 @@ document.getElementById('searchBtn').addEventListener('click', function(event) {
   
     // Gets the user input value
     var city = document.getElementById('userInput').value;
-  
+    recentSearches.push(city); //Adds the searches city to the array
+    //Saves to local storage 
+    localStorage.setItem('RecentSearches', JSON.stringify(recentSearches)); // Save the array to local storage
+    console.log("City saved");
+
     // Call the function to fetch weather data based on the user input
-    getWeatherData(city);
+    getWeatherData(city);  
+    // Append recent searches to the HTML
+    appendRecentSearches(city);
   });
 //Day.js to get our current time 
 //Get current Day  
@@ -146,26 +177,26 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 // +1 Day
 document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("date-plus-1").textContent = dayjs().add(1, "day").format("dddd,DD/MM/YY");
+  document.getElementById("date-plus-1").textContent = dayjs().add(1, "day").format("dddd ,DD/MM/YY");
 });
 
 // +2 Day
 document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("date-plus-2").textContent = dayjs().add(2, "day").format("dddd,DD/MM/YY");
+  document.getElementById("date-plus-2").textContent = dayjs().add(2, "day").format("dddd ,DD/MM/YY");
 });
 
 // +3 Day
 document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("date-plus-3").textContent = dayjs().add(3, "day").format("dddd,DD/MM/YY");
+  document.getElementById("date-plus-3").textContent = dayjs().add(3, "day").format("dddd ,DD/MM/YY");
 });
 
 // +4 Day
 document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("date-plus-4").textContent = dayjs().add(4, "day").format("dddd,DD/MM/YY");
+  document.getElementById("date-plus-4").textContent = dayjs().add(4, "day").format("dddd ,DD/MM/YY");
 });
 
 // +5 Day
 document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("date-plus-5").textContent = dayjs().add(5, "day").format("dddd,DD/MM/YY");
+  document.getElementById("date-plus-5").textContent = dayjs().add(5, "day").format("dddd ,DD/MM/YY");
 });
 
