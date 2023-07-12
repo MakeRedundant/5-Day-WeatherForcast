@@ -60,7 +60,7 @@ function getWeatherData(city) {
       //Through the Open WeatherMap API response
       //Current day
         // Updates the City information in the HTML by getting the value of the name property 
-        document.getElementById("currentCity").textContent = data.name;
+        document.getElementById("currentCity").textContent = data.city.name;
         // Updates the temperature information in the HTML by getting the temp property 
         document.getElementById("currentTemp").textContent = "Temp: " + data.list[0].main.temp + "ºC";
         // Updates the Wind information in the HTML by getting wind property which contains properties such as speed
@@ -177,26 +177,26 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 // +1 Day
 document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("date-plus-1").textContent = dayjs().add(1, "day").format("dddd ,DD/MM/YY");
+  document.getElementById("date-plus-1").textContent = dayjs().add(1, "day").format("dddd DD/MM/YY");
 });
 
 // +2 Day
 document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("date-plus-2").textContent = dayjs().add(2, "day").format("dddd ,DD/MM/YY");
+  document.getElementById("date-plus-2").textContent = dayjs().add(2, "day").format("dddd DD/MM/YY");
 });
 
 // +3 Day
 document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("date-plus-3").textContent = dayjs().add(3, "day").format("dddd ,DD/MM/YY");
+  document.getElementById("date-plus-3").textContent = dayjs().add(3, "day").format("dddd DD/MM/YY");
 });
 
 // +4 Day
 document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("date-plus-4").textContent = dayjs().add(4, "day").format("dddd ,DD/MM/YY");
+  document.getElementById("date-plus-4").textContent = dayjs().add(4, "day").format("dddd DD/MM/YY");
 });
 
 // +5 Day
 document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("date-plus-5").textContent = dayjs().add(5, "day").format("dddd ,DD/MM/YY");
+  document.getElementById("date-plus-5").textContent = dayjs().add(5, "day").format("dddd DD/MM/YY");
 });
 
