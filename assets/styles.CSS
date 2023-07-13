@@ -1,23 +1,28 @@
 .custom-gradient {
-  background: linear-gradient(to right, #85c1e9, #6603b8);
+  background: linear-gradient(to right, #9863a5, #02058a);
 }
 
- /* #main-container {
-    display: flex;
-    justify-content: left;
+.custom-gradient-city {
+  background: linear-gradient(to right, #768cb6, #0609a3);
 }
 
-#currentWeather {
-    display: flex;
-    justify-content: right;
-} */
 
 #five-DayForecast-container {
     margin-top: 20px;
     display: flex;
-    justify-content: right;
   }
+
+  .card-spacing {
+    padding: 10px;
+  }
+  
+
 
 #currentWeather {
     border: 1px solid black;
 }
+
+.btn-enlarge:hover {
+  transform: scale(1.1);
+}
+

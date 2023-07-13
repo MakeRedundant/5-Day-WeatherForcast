@@ -21,18 +21,18 @@
                 <form id="form" class="border rounded p-3 bg-primary text-white">
                     <label for="City" class="form-label">Search for a city:</label>
                     <input type="text" placeholder="Sydney" id="userInput" name="City" />
-                    <button type="submit" id="searchBtn" class="btn">Search</button>
+                    <button type="submit" id="searchBtn" class="btn btn-primary rounded-pill bg-black text-white btn-enlarge">Search</button>
                 </form>
                 <hr />
             <div id="recent-container">
             <h2>Recent Searches</h2>
-                <div id="recentSearches" class="border rounded p-3 bg-primary text-white"> </div> <!--need to dynamically create recent searches here-->  
+                <ul id="recentSearches" class="border rounded p-3 bg-primary text-white"> </ul> <!--need to dynamically create recent searches here-->  
             </div> 
             </div>
             </div>
 
             <div id="weather-container" class="col-md-8">
-                <div id="currentWeather">
+                <div id="currentWeather" class="custom-gradient-city text-white">
                     <div id="currentHeader">
                         <p id="currentCity">City</p>
                         <p id="currentDate">(Date)</p>
@@ -44,8 +44,8 @@
                     <p id="description" class="card-Info">Description:</p>
                 </div>
                 <h3>5-Day Forecast:</h3>
-                <div id="five-DayForecast-container" >
-                    <div class="five-DayForecast-cards">
+                <div id="five-DayForecast-container" class="row">
+                    <div class="five-DayForecast-cards card-spacing rounded border custom-gradient text-white col-md">
                       <div id="date-plus-1" class="date"></div>
                       <img src="" id="icon-1">
                       <div id="temp-1" class="card-Info">Temp:</div>
@@ -53,37 +53,37 @@
                       <div id="humidity-1" class="card-Info">Humidity:</div>
                       <div id="description-1" class="card-Info">Description:</div>
                     </div>
-                    <div class="five-DayForecast-cards">
-                        <div id='date-plus-2' class="date"></div>
-                        <img src="" id="icon-2">
-                        <div id="temp-2" class="card-Info">Temp:</div>
-                        <div id="wind-2" class="card-Info">Wind:</div>
-                        <div id="humidity-2" class="card-Info">Humidity:</div>
-                        <div id="description-2" class="card-Info">Description:</div>
+                    <div class="five-DayForecast-cards card-spacing rounded border custom-gradient text-white col-md">
+                      <div id='date-plus-2' class="date"></div>
+                      <img src="" id="icon-2">
+                      <div id="temp-2" class="card-Info">Temp:</div>
+                      <div id="wind-2" class="card-Info">Wind:</div>
+                      <div id="humidity-2" class="card-Info">Humidity:</div>
+                      <div id="description-2" class="card-Info">Description:</div>
                     </div>
-                    <div class="five-DayForecast-cards">
-                        <div id="date-plus-3" class="date"></div>
-                        <img  id="icon-3" class="icon">
-                        <div id="temp-3" class="card-Info">Temp:</div>
-                        <div id="wind-3" class="card-Info">Wind:</div>
-                        <div id="humidity-3" class="card-Info">Humidity:</div>
-                        <div id="description-3" class="card-Info">Description:</div>
+                    <div class="five-DayForecast-cards card-spacing rounded border custom-gradient text-white col-md">
+                      <div id="date-plus-3" class="date"></div>
+                      <img id="icon-3" class="icon">
+                      <div id="temp-3" class="card-Info">Temp:</div>
+                      <div id="wind-3" class="card-Info">Wind:</div>
+                      <div id="humidity-3" class="card-Info">Humidity:</div>
+                      <div id="description-3" class="card-Info">Description:</div>
                     </div>
-                    <div class="five-DayForecast-cards">
-                        <div id="date-plus-4" class="date"></div>
-                        <img  id="icon-4" class="icon">
-                        <div id="temp-4" class="card-Info">Temp:</div>
-                        <div id="wind-4" class="card-Info">Wind:</div>
-                        <div id="humidity-4" class="card-Info">Humidity:</div>
-                        <div id="description-4" class="card-Info">Description:</div>
+                    <div class="five-DayForecast-cards card-spacing rounded border custom-gradient text-white col-md">
+                      <div id="date-plus-4" class="date"></div>
+                      <img id="icon-4" class="icon">
+                      <div id="temp-4" class="card-Info">Temp:</div>
+                      <div id="wind-4" class="card-Info">Wind:</div>
+                      <div id="humidity-4" class="card-Info">Humidity:</div>
+                      <div id="description-4" class="card-Info">Description:</div>
                     </div>
-                    <div class="five-DayForecast-cards">
-                        <div id="date-plus-5" class="date"></div>
-                        <img  id="icon-5" class="icon">
-                        <div id="temp-5" class="card-Info">Temp:</div>
-                        <div id="wind-5" class="card-Info">Wind:</div>
-                        <div id="humidity-5" class="card-Info">Humidity:</div>
-                        <div id="description-5" class="card-Info">Description:</div>
+                    <div class="five-DayForecast-cards card-spacing rounded border custom-gradient text-white col-md">
+                      <div id="date-plus-5" class="date"></div>
+                      <img id="icon-5" class="icon">
+                      <div id="temp-5" class="card-Info">Temp:</div>
+                      <div id="wind-5" class="card-Info">Wind:</div>
+                      <div id="humidity-5" class="card-Info">Humidity:</div>
+                      <div id="description-5" class="card-Info">Description:</div>
                     </div>
                 </div>
             </div>
