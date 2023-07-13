@@ -6,23 +6,19 @@
   background: linear-gradient(to right, #768cb6, #0609a3);
 }
 
-
 #five-DayForecast-container {
-    margin-top: 20px;
-    display: flex;
-  }
+  margin-top: 20px;
+  display: flex;
+}
 
-  .card-spacing {
-    padding: 10px;
-  }
-  
-
+.card-spacing {
+  padding: 10px;
+}
 
 #currentWeather {
-    border: 1px solid black;
+  border: 1px solid black;
 }
 
 .btn-enlarge:hover {
   transform: scale(1.1);
 }
-
