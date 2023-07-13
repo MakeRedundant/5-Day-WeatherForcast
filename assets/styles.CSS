@@ -12,7 +12,7 @@
 }
 
 .card-spacing {
-  padding: 10px;
+  padding: 10px; /* from the top */
 }
 
 #currentWeather {
