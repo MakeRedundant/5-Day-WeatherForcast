@@ -3,7 +3,16 @@
 }
 
 .custom-gradient-city {
-  background: linear-gradient(to right, #768cb6, #0609a3);
+  background: linear-gradient(to right, #64728b, #0609a3, #b1cc37);
+}
+
+.custom-gradient-nav-container {
+  background: linear-gradient(to right, #b3b6bb, #4a4b94, #0609a3, #96028e);
+}
+
+.btn-purple {
+  background-color: rgb(69, 12, 134);
+  color: white;
 }
 
 #five-DayForecast-container {

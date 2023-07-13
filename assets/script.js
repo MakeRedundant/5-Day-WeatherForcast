@@ -75,14 +75,14 @@ function getWeatherData(city) {
         console.log(time);
 
         //Day +1 
-        document.querySelector("#icon-1").src = "https://openweathermap.org/img/wn/" + data.list[1].weather[0].icon + ".png";
+        document.querySelector("#icon-1").src = "https://openweathermap.org/img/wn/" + data.list[8].weather[0].icon + ".png";
         document.querySelector("#temp-1").textContent = "Temp: " + data.list[1].main.temp + " ºC";
         document.querySelector("#wind-1").textContent = "Wind: " + data.list[1].wind.speed + " m/s";
         document.querySelector("#humidity-1").textContent = "Humidity: " + data.list[1].main.humidity + " %";
         document.getElementById("description-1").textContent = "Description: " + data.list[1].weather[0].description;
 
         //Day +2 
-        document.querySelector("#icon-2").src = "https://openweathermap.org/img/wn/" + data.list[2].weather[0].icon + ".png";
+        document.querySelector("#icon-2").src = "https://openweathermap.org/img/wn/" + data.list[16].weather[0].icon + ".png";
         document.querySelector("#temp-2").textContent = "Temp: " + data.list[2].main.temp + " ºC";
         document.querySelector("#wind-2").textContent = "Wind: " + data.list[2].wind.speed + " m/s";
         document.querySelector("#humidity-2").textContent = "Humidity: " + data.list[2].main.humidity + " %";
