@@ -129,6 +129,11 @@ function appendRecentSearches(city) {
 
   // Clear the container before appending new buttons
   recentSearchesContainer.innerHTML = "";
+  var errorOccurred = document.getElementById("currentCity").textContent === "Sorry, there was an error";
+
+  if (errorOccurred) {
+    return; // If there was an error, stop the function execution
+  }
 
   for (var index = 0; index < recentSearches.length; index++) {
     var city = recentSearches[index];
@@ -148,7 +153,7 @@ function appendRecentSearches(city) {
 //Event Listeners
 //Search for a city 
 document.getElementById('searchBtn').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent form submission
+    event.preventDefault(); 
     console.log("search button clicked");
   
     // Gets the user input value
@@ -157,6 +162,12 @@ document.getElementById('searchBtn').addEventListener('click', function(event) {
     //Saves to local storage 
     localStorage.setItem('RecentSearches', JSON.stringify(recentSearches)); // Save the array to local storage
     console.log("City saved");
+
+    // Check if the city input is empty
+  if (city.trim() === "") {
+    window.alert("Please input a city"); // Display a window popup asking to input a city
+    return; // Stop the function execution
+  }
 
     // Call the function to fetch weather data based on the user input
     getWeatherData(city);  
