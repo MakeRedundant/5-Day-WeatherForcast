@@ -1,0 +1,23 @@
+.custom-gradient {
+  background: linear-gradient(to right, #85c1e9, #6603b8);
+}
+
+#main-container {
+    display: flex;
+    justify-content: left;
+}
+
+#currentWeather {
+    display: flex;
+    justify-content: right;
+}
+
+#five-DayForecast-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: right;
+  }
+
+#currentWeather {
+    border: 1px solid black;
+}
