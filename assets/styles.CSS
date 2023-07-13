@@ -2,7 +2,7 @@
   background: linear-gradient(to right, #85c1e9, #6603b8);
 }
 
-#main-container {
+ /* #main-container {
     display: flex;
     justify-content: left;
 }
@@ -10,7 +10,7 @@
 #currentWeather {
     display: flex;
     justify-content: right;
-}
+} */
 
 #five-DayForecast-container {
     margin-top: 20px;
