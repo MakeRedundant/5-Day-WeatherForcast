@@ -237,7 +237,7 @@ function appendRecentSearches(city) {
 }
 
 //Event Listeners
-//Search for a city
+  //Search for a city
 document
   .getElementById("searchBtn")
   .addEventListener("click", function (event) {
@@ -262,8 +262,8 @@ document
     // Append recent searches to the HTML
     appendRecentSearches(city);
   });
-//Day.js to get our current time
-//Get current Day
+  //Day.js to get our current time
+  //Get current Day
 document.addEventListener("DOMContentLoaded", function () {
   var currentDate = dayjs().format("dddd, D, MMMM, YYYY");
   document.getElementById("currentDay").textContent = currentDate;
