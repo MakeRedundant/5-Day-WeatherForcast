@@ -216,14 +216,14 @@ function appendRecentSearches(city) {
   }
 
   // Create a list item for each recent search
-  for (var index = 0; index < recentSearches.length; index++) {
-    var city = recentSearches[index];
-    var listItem = document.createElement("li");
-    var recentSearchButton = document.createElement("button");
+  for (let index = 0; index < recentSearches.length; index++) {
+    let city = recentSearches[index];
+    let listItem = document.createElement("li");
+    let recentSearchButton = document.createElement("button");
     recentSearchButton.innerText = city;
     recentSearchButton.className = "btn btn-primary";
     recentSearchButton.onclick = function () {
-      var cityName = this.innerText;
+      let cityName = this.innerText;
       console.log("City button clicked: " + cityName);
       getWeatherData(cityName);
     };
