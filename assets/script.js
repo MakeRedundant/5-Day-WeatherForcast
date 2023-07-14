@@ -71,43 +71,53 @@ function getWeatherData(city) {
         document.getElementById("description").textContent = "Description: " + data.list[0].weather[0].description;
         // Adds a icon from the openweather API corresponding to particular weather codes 
         document.getElementById("currentIcon").src = "https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + ".png";
-        var time = data.list[0].dt_txt;
-        console.log(time);
+
+        // Check if the weather icon is available in the response
+if (data.list[0].weather[0].icon) {
+  // Construct the URL for the weather icon
+  var iconUrl = "https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + ".png";
+
+  // Set the src attribute of the image element to the icon URL
+  document.getElementById("currentIcon").src = iconUrl;
+
+  // Show the image
+  document.getElementById("currentIcon").style.display = "inline-block";
+}
 
         //Day +1 
         document.querySelector("#icon-1").src = "https://openweathermap.org/img/wn/" + data.list[8].weather[0].icon + ".png";
-        document.querySelector("#temp-1").textContent = "Temp: " + data.list[1].main.temp + " ºC";
-        document.querySelector("#wind-1").textContent = "Wind: " + data.list[1].wind.speed + " m/s";
-        document.querySelector("#humidity-1").textContent = "Humidity: " + data.list[1].main.humidity + " %";
-        document.getElementById("description-1").textContent = "Description: " + data.list[1].weather[0].description;
+        document.querySelector("#temp-1").textContent = "Temp: " + data.list[8].main.temp + " ºC";
+        document.querySelector("#wind-1").textContent = "Wind: " + data.list[8].wind.speed + " m/s";
+        document.querySelector("#humidity-1").textContent = "Humidity: " + data.list[8].main.humidity + " %";
+        document.getElementById("description-1").textContent = "Description: " + data.list[8].weather[0].description;
 
         //Day +2 
         document.querySelector("#icon-2").src = "https://openweathermap.org/img/wn/" + data.list[16].weather[0].icon + ".png";
-        document.querySelector("#temp-2").textContent = "Temp: " + data.list[2].main.temp + " ºC";
-        document.querySelector("#wind-2").textContent = "Wind: " + data.list[2].wind.speed + " m/s";
-        document.querySelector("#humidity-2").textContent = "Humidity: " + data.list[2].main.humidity + " %";
-        document.getElementById("description-2").textContent = "Description: " + data.list[2].weather[0].description;
+        document.querySelector("#temp-2").textContent = "Temp: " + data.list[16].main.temp + " ºC";
+        document.querySelector("#wind-2").textContent = "Wind: " + data.list[16].wind.speed + " m/s";
+        document.querySelector("#humidity-2").textContent = "Humidity: " + data.list[16].main.humidity + " %";
+        document.getElementById("description-2").textContent = "Description: " + data.list[16].weather[0].description;
 
         //Day +3 
-        document.querySelector("#icon-3").src = "https://openweathermap.org/img/wn/" + data.list[3].weather[0].icon + ".png";
-        document.querySelector("#temp-3").textContent = "Temp: " + data.list[3].main.temp + " ºC";
-        document.querySelector("#wind-3").textContent = "Wind: " + data.list[3].wind.speed + " m/s";
-        document.querySelector("#humidity-3").textContent = "Humidity: " + data.list[3].main.humidity + " %";
-        document.getElementById("description-3").textContent = "Description: " + data.list[3].weather[0].description;
+        document.querySelector("#icon-3").src = "https://openweathermap.org/img/wn/" + data.list[24].weather[0].icon + ".png";
+        document.querySelector("#temp-3").textContent = "Temp: " + data.list[24].main.temp + " ºC";
+        document.querySelector("#wind-3").textContent = "Wind: " + data.list[24].wind.speed + " m/s";
+        document.querySelector("#humidity-3").textContent = "Humidity: " + data.list[24].main.humidity + " %";
+        document.getElementById("description-3").textContent = "Description: " + data.list[24].weather[0].description;
 
         //Day +4 
-        document.querySelector("#icon-4").src = "https://openweathermap.org/img/wn/" + data.list[4].weather[0].icon + ".png";
-        document.querySelector("#temp-4").textContent = "Temp: " + data.list[4].main.temp + " ºC";
-        document.querySelector("#wind-4").textContent = "Wind: " + data.list[4].wind.speed + " m/s";
-        document.querySelector("#humidity-4").textContent = "Humidity: " + data.list[4].main.humidity + " %";
-        document.getElementById("description-4").textContent = "Description: " + data.list[4].weather[0].description;
+        document.querySelector("#icon-4").src = "https://openweathermap.org/img/wn/" + data.list[32].weather[0].icon + ".png";
+        document.querySelector("#temp-4").textContent = "Temp: " + data.list[32].main.temp + " ºC";
+        document.querySelector("#wind-4").textContent = "Wind: " + data.list[32].wind.speed + " m/s";
+        document.querySelector("#humidity-4").textContent = "Humidity: " + data.list[32].main.humidity + " %";
+        document.getElementById("description-4").textContent = "Description: " + data.list[32].weather[0].description;
 
         //Day +5 
-        document.querySelector("#icon-5").src = "https://openweathermap.org/img/wn/" + data.list[5].weather[0].icon + ".png";
-        document.querySelector("#temp-5").textContent = "Temp: " + data.list[5].main.temp + " ºC";
-        document.querySelector("#wind-5").textContent = "Wind: " + data.list[5].wind.speed + " m/s";
-        document.querySelector("#humidity-5").textContent = "Humidity: " + data.list[5].main.humidity + " %";
-        document.getElementById("description-5").textContent = "Description: " + data.list[5].weather[0].description;
+        document.querySelector("#icon-5").src = "https://openweathermap.org/img/wn/" + data.list[39].weather[0].icon + ".png";
+        document.querySelector("#temp-5").textContent = "Temp: " + data.list[39].main.temp + " ºC";
+        document.querySelector("#wind-5").textContent = "Wind: " + data.list[39].wind.speed + " m/s";
+        document.querySelector("#humidity-5").textContent = "Humidity: " + data.list[39].main.humidity + " %";
+        document.getElementById("description-5").textContent = "Description: " + data.list[39].weather[0].description;
         
       })
         .catch(function(error) {
@@ -161,7 +171,6 @@ function appendRecentSearches(city) {
     recentSearchesContainer.appendChild(listItem);
   }
 }
-
 
 //Event Listeners
 //Search for a city 
@@ -223,4 +232,7 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("date-plus-5").textContent = dayjs().add(5, "day").format("dddd DD/MM/YY");
 });
+
+document.getElementById("currentIcon").src = "";
+document.getElementById("currentIcon").style.display = "none";
 
